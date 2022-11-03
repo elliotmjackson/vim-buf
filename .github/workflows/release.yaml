@@ -30,6 +30,8 @@ jobs:
           fetch-depth: 0
       - name: Tag Release
         run: |
+          git config --global user.email "${{github.triggering_actor}}@users.noreply.github.com"
+          git config --global user.name "${{github.triggering_actor}}"
           git config --global user.password ${{ secrets.GITHUB_TOKEN }}
           git tag -a v${{env.VERSION}} 2> /dev/null || echo 'local ref does not exist'
           git push origin :v${{env.VERSION}} 2> /dev/null || echo 'remote ref does not exist'
